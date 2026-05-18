@@ -1293,99 +1293,232 @@ main#app.app-shell { background: transparent; }
 }
 
 /* ============================================================
-   CHATBOT  (react-chatbotify overrides)
+   CHATBOT
    ============================================================ */
 
-/* Floating button: show favicon, hide default SVG icon */
-.rcb-toggle-icon {
-  background-image: url('/favicon.png') !important;
-  background-size: 60% !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
+/* ---------- toggle button ---------- */
+.cb-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  border: 1px solid rgba(222, 184, 65, 0.35);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(222,184,65,0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: #fff;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
-.rcb-toggle-icon * {
-  visibility: hidden !important;
-}
-
-/* Input / textarea fine-tuning */
-.rcb-chat-input {
-  background-color: #1a1a1a !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-}
-.rcb-chat-input-textarea {
-  background-color: #252525 !important;
-  color: #ffffff !important;
-  caret-color: #deb841 !important;
-  font-size: 16px !important; /* prevent iOS auto-zoom on focus */
-}
-.rcb-chat-input-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.35) !important;
-}
-
-/* Hide footer */
-.rcb-chat-footer-container {
-  display: none !important;
+.cb-toggle:hover {
+  background: #242424;
+  border-color: rgba(222, 184, 65, 0.65);
+  box-shadow: 0 6px 32px rgba(0,0,0,0.7), 0 0 16px rgba(222,184,65,0.15);
 }
 
-/* Gold typing dots */
-.rcb-dot {
-  background-color: #deb841 !important;
+/* ---------- chat window ---------- */
+.cb-window {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 375px;
+  height: 560px;
+  background: #141414;
+  border-radius: 20px;
+  border: 1px solid rgba(222, 184, 65, 0.15);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  font-family: Bricolage Grotesque, system-ui, -apple-system, Arial, sans-serif;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.cb-window--open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
 }
 
-/* Scrollbar */
-.rcb-chat-body-container::-webkit-scrollbar { width: 3px !important; }
-.rcb-chat-body-container::-webkit-scrollbar-track { background: transparent !important; }
-.rcb-chat-body-container::-webkit-scrollbar-thumb {
-  background: rgba(222, 184, 65, 0.3) !important;
-  border-radius: 999px !important;
+/* ---------- header ---------- */
+.cb-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+  border-bottom: 1px solid rgba(222, 184, 65, 0.2);
+  flex-shrink: 0;
+}
+.cb-close {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: color 0.18s, background 0.18s;
+}
+.cb-close:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+/* ---------- messages body ---------- */
+.cb-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px;
+  background: #141414;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cb-body::-webkit-scrollbar { width: 3px; }
+.cb-body::-webkit-scrollbar-track { background: transparent; }
+.cb-body::-webkit-scrollbar-thumb { background: rgba(222,184,65,0.3); border-radius: 4px; }
+
+/* ---------- bubbles ---------- */
+.cb-bubble {
+  max-width: 86%;
+  padding: 10px 14px;
+  font-size: 13.5px;
+  line-height: 1.6;
+  word-break: break-word;
+}
+.cb-bubble--bot {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 4px 18px 18px 18px;
+  align-self: flex-start;
+}
+.cb-bubble--user {
+  background: linear-gradient(135deg, #deb841 0%, #c9a530 100%);
+  color: #111;
+  font-weight: 600;
+  border-radius: 18px 18px 4px 18px;
+  align-self: flex-end;
 }
 
-/* Mobile slide-up animation — defined at top level to avoid bundler extraction bugs */
-@keyframes rcb-mobile-open {
-  0%   { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* ---------- typing indicator ---------- */
+.cb-typing {
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px !important;
 }
-@keyframes rcb-mobile-close {
-  0%   { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(30px); }
+.cb-typing span {
+  width: 7px;
+  height: 7px;
+  background: #deb841;
+  border-radius: 50%;
+  display: block;
+  animation: cb-dot 1.2s ease-in-out infinite;
+}
+.cb-typing span:nth-child(2) { animation-delay: 0.2s; }
+.cb-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes cb-dot {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1);   }
 }
 
-/* --- Mobile: full-screen chat ≤ 600px --- */
-@media (max-width: 600px) {
-  /* Override open/close animations for mobile */
-  .rcb-window-open .rcb-chat-window {
-    animation: rcb-mobile-open 0.3s ease-in-out forwards !important;
+/* ---------- quick-reply options ---------- */
+.cb-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px 12px;
+  flex-shrink: 0;
+}
+.cb-option {
+  background: transparent;
+  border: 1px solid rgba(222, 184, 65, 0.4);
+  color: #deb841;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 5px 13px;
+  transition: background 0.18s, border-color 0.18s;
+}
+.cb-option:hover {
+  background: rgba(222, 184, 65, 0.1);
+  border-color: rgba(222, 184, 65, 0.8);
+}
+
+/* ---------- input row ---------- */
+.cb-input-row {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #1a1a1a;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+.cb-input {
+  flex: 1;
+  background: #252525;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.cb-input:focus {
+  border-color: rgba(222, 184, 65, 0.55);
+  box-shadow: 0 0 0 3px rgba(222, 184, 65, 0.07);
+}
+.cb-input::placeholder { color: #555; }
+.cb-send {
+  width: 40px;
+  height: 40px;
+  background: #deb841;
+  border: none;
+  border-radius: 10px;
+  color: #111;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+.cb-send:hover:not(:disabled) { background: #c9a530; }
+.cb-send:disabled { opacity: 0.35; cursor: default; }
+
+/* ---------- mobile: full-screen ---------- */
+@media (max-width: 768px) {
+  .cb-window {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100dvh;
+    border-radius: 0;
+    transform: translateY(30px);
   }
-  .rcb-window-close .rcb-chat-window {
-    animation: rcb-mobile-close 0.3s ease-in-out forwards !important;
-  }
+  .cb-window--open { transform: translateY(0); }
 
-  /* Chat window: full-screen */
-  .rcb-chat-window {
-    position:      fixed !important;
-    top:           0     !important;
-    left:          0     !important;
-    right:         0     !important;
-    bottom:        0     !important;
-    width:         100%  !important;
-    max-width:     100%  !important;
-    height:        100%  !important;
-    max-height:    100%  !important;
-    min-height:    unset !important;
-    border-radius: 0     !important;
-    z-index:       9999  !important;
-    overflow:      hidden !important;
-  }
+  /* Hide toggle while window is open on mobile */
+  .cb-toggle--open { display: none; }
 
-  /* Toggle button above the chat */
-  .rcb-toggle-button {
-    width:   54px  !important;
-    height:  54px  !important;
-    bottom:  16px  !important;
-    right:   16px  !important;
-    z-index: 10000 !important;
+  .cb-toggle {
+    bottom: 16px;
+    right: 16px;
   }
-
-  .rcb-options   { padding: 8px 16px !important; font-size: 14px !important; }
-  .rcb-send-button { width: 48px !important; height: 40px !important; }
 }
+
