@@ -31,10 +31,11 @@ export default function ContactSection({ contacts, subtitle }: ContactSectionPro
       </div>
       <div className="contact-map-wrap">
         <iframe
-          title="Awkar map"
+          title="Alnajjar Firm location — Awkar, Mount Lebanon"
           loading="lazy"
+          allowFullScreen
           referrerPolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Awkar%20haret%20el%20ballan&output=embed"
+          src="https://maps.google.com/maps?q=33.9281,35.6019&z=16&output=embed"
         />
       </div>
     </section>
