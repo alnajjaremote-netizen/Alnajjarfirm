@@ -1340,38 +1340,25 @@ main#app.app-shell { background: transparent; }
   border-radius: 999px !important;
 }
 
-/* --- Mobile: full-screen bottom sheet ≤ 600px --- */
+/* --- Mobile: compact floating window ≤ 600px --- */
 @media (max-width: 600px) {
-  /* Slide-up animation instead of the default corner-expand */
-  @keyframes rcb-animation-expand {
-    from { transform: translateY(100%); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
-  }
-  @keyframes rcb-animation-collapse {
-    from { transform: translateY(0);    opacity: 1; }
-    to   { transform: translateY(100%); opacity: 0; }
-  }
-
-  /* Full-width bottom sheet */
+  /* Floating window — fits screen, website stays visible behind it */
   .rcb-chat-window {
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;
-    height: 88dvh !important;
-    max-height: 88dvh !important;
-    border-radius: 20px 20px 0 0 !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: none !important;
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 82px !important;
+    width: auto !important;
+    height: 460px !important;
+    max-height: calc(100dvh - 110px) !important;
+    border-radius: 16px !important;
   }
 
   /* Toggle button */
   .rcb-toggle-button {
     width: 58px !important;
     height: 58px !important;
-    bottom: 16px !important;
-    right: 16px !important;
+    bottom: 14px !important;
+    right: 14px !important;
   }
 
   /* Larger tap targets */
