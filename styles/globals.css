@@ -1293,10 +1293,10 @@ main#app.app-shell { background: transparent; }
 }
 
 /* ============================================================
-   CHATBOT  (react-chatbotify overrides — dark theme + mobile)
+   CHATBOT  (react-chatbotify overrides)
    ============================================================ */
 
-/* --- Floating button: favicon icon, dark background --- */
+/* Floating button: show favicon, hide default SVG icon */
 .rcb-toggle-icon {
   background-image: url('/favicon.png') !important;
   background-size: 60% !important;
@@ -1307,79 +1307,52 @@ main#app.app-shell { background: transparent; }
   visibility: hidden !important;
 }
 
-/* --- Force dark theme on every library element --- */
-
-/* Outer window */
-.rcb-chat-window {
-  background-color: #141414 !important;
-}
-
-/* Message body area */
-.rcb-chat-body-container {
-  background-color: #141414 !important;
-}
-
-/* Input row container */
+/* Input / textarea fine-tuning */
 .rcb-chat-input {
   background-color: #1a1a1a !important;
   border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
-
-/* Textarea */
 .rcb-chat-input-textarea {
   background-color: #252525 !important;
   color: #ffffff !important;
   caret-color: #deb841 !important;
-  font-size: 16px !important; /* prevents iOS auto-zoom */
+  font-size: 16px !important; /* prevent iOS auto-zoom on focus */
 }
 .rcb-chat-input-textarea::placeholder {
   color: rgba(255, 255, 255, 0.35) !important;
 }
 
-/* Footer */
+/* Hide footer */
 .rcb-chat-footer-container {
   display: none !important;
 }
 
+/* Gold typing dots */
+.rcb-dot {
+  background-color: #deb841 !important;
+}
+
 /* Scrollbar */
-.rcb-chat-body-container::-webkit-scrollbar {
-  width: 3px !important;
-}
-.rcb-chat-body-container::-webkit-scrollbar-track {
-  background: transparent !important;
-}
+.rcb-chat-body-container::-webkit-scrollbar { width: 3px !important; }
+.rcb-chat-body-container::-webkit-scrollbar-track { background: transparent !important; }
 .rcb-chat-body-container::-webkit-scrollbar-thumb {
   background: rgba(222, 184, 65, 0.3) !important;
   border-radius: 999px !important;
 }
 
-/* View-history button */
-.rcb-view-history-button {
-  background-color: #252525 !important;
-  color: #deb841 !important;
-  border-color: rgba(222, 184, 65, 0.35) !important;
-}
-
-/* "Scroll to bottom" message prompt */
-.rcb-message-prompt-text {
-  background-color: #252525 !important;
-  color: rgba(255, 255, 255, 0.7) !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Chat history line break text */
-.rcb-line-break-text {
-  color: rgba(255, 255, 255, 0.35) !important;
-}
-
-/* Typing indicator dots */
-.rcb-dot {
-  background-color: #deb841 !important;
-}
-
-/* --- Mobile: bottom-sheet layout ≤ 600px --- */
+/* --- Mobile: full-screen bottom sheet ≤ 600px --- */
 @media (max-width: 600px) {
-  /* Bottom sheet slides up from the bottom edge */
+  /* Slide-up animation instead of the default corner-expand */
+  @keyframes rcb-animation-expand {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  @keyframes rcb-animation-collapse {
+    from { transform: translateY(0);    opacity: 1; }
+    to   { transform: translateY(100%); opacity: 0; }
+  }
+
+  /* Full-width bottom sheet */
   .rcb-chat-window {
     left: 0 !important;
     right: 0 !important;
@@ -1393,7 +1366,7 @@ main#app.app-shell { background: transparent; }
     border-bottom: none !important;
   }
 
-  /* Compact toggle button, clear of keyboard */
+  /* Toggle button */
   .rcb-toggle-button {
     width: 58px !important;
     height: 58px !important;
@@ -1401,13 +1374,11 @@ main#app.app-shell { background: transparent; }
     right: 16px !important;
   }
 
-  /* Slightly larger option chips for fat fingers */
+  /* Larger tap targets */
   .rcb-options {
     padding: 7px 15px !important;
     font-size: 13px !important;
   }
-
-  /* Comfortable send button tap area */
   .rcb-send-button {
     width: 44px !important;
     height: 38px !important;
