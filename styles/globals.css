@@ -1340,37 +1340,50 @@ main#app.app-shell { background: transparent; }
   border-radius: 999px !important;
 }
 
-/* --- Mobile: compact floating widget ≤ 600px --- */
+/* --- Mobile: floating overlay widget ≤ 600px --- */
 @media (max-width: 600px) {
+  /* Slide-up animation — replaces the library's corner-fly-in on mobile */
+  @keyframes rcb-animation-expand {
+    0%   { transform: translateY(16px); opacity: 0; }
+    100% { transform: translateY(0);    opacity: 1; }
+  }
+  @keyframes rcb-animation-collapse {
+    0%   { transform: translateY(0);    opacity: 1; }
+    100% { transform: translateY(16px); opacity: 0; }
+  }
+
+  /* Chat window — right-aligned floating panel */
   .rcb-chat-window {
-    left: 12px !important;
-    right: 12px !important;
-    width: calc(100% - 24px) !important;
-    max-width: 360px !important;
-    height: 70vh !important;
-    max-height: 70vh !important;
-    bottom: 80px !important;
-    border-radius: 16px !important;
-    position: fixed !important;
-    z-index: 9999 !important;
-    overflow: hidden !important;
+    position:   fixed !important;
+    right:      12px  !important;
+    left:       auto  !important;
+    bottom:     80px  !important;
+    top:        auto  !important;
+    width:      calc(100% - 24px) !important;
+    max-width:  360px !important;
+    height:     62vh  !important;
+    max-height: 520px !important;
+    min-height: 280px !important;
+    border-radius: 20px !important;
+    z-index:    9999  !important;
+    overflow:   hidden !important;
   }
 
-  /* Toggle button */
+  /* Toggle button aligned to same corner */
   .rcb-toggle-button {
-    width: 56px !important;
+    width:  56px !important;
     height: 56px !important;
-    bottom: 12px !important;
-    right: 12px !important;
+    bottom: 14px !important;
+    right:  14px !important;
   }
 
-  /* Larger tap targets */
   .rcb-options {
-    padding: 7px 15px !important;
-    font-size: 13px !important;
+    padding:   7px 14px !important;
+    font-size: 13px     !important;
   }
+
   .rcb-send-button {
-    width: 44px !important;
+    width:  44px !important;
     height: 38px !important;
   }
 }
