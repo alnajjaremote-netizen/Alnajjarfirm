@@ -1340,19 +1340,27 @@ main#app.app-shell { background: transparent; }
   border-radius: 999px !important;
 }
 
+/* Mobile slide-up animation — defined at top level to avoid bundler extraction bugs */
+@keyframes rcb-mobile-open {
+  0%   { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes rcb-mobile-close {
+  0%   { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(30px); }
+}
+
 /* --- Mobile: full-screen chat ≤ 600px --- */
 @media (max-width: 600px) {
-  /* Fade in/out animation for full-screen panel */
-  @keyframes rcb-animation-expand {
-    0%   { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+  /* Override open/close animations for mobile */
+  .rcb-window-open .rcb-chat-window {
+    animation: rcb-mobile-open 0.3s ease-in-out forwards !important;
   }
-  @keyframes rcb-animation-collapse {
-    0%   { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(30px); }
+  .rcb-window-close .rcb-chat-window {
+    animation: rcb-mobile-close 0.3s ease-in-out forwards !important;
   }
 
-  /* Chat window covers entire viewport */
+  /* Chat window: full-screen */
   .rcb-chat-window {
     position:      fixed !important;
     top:           0     !important;
@@ -1369,21 +1377,15 @@ main#app.app-shell { background: transparent; }
     overflow:      hidden !important;
   }
 
-  /* Toggle button stays visible above the chat */
+  /* Toggle button above the chat */
   .rcb-toggle-button {
-    width:   54px !important;
-    height:  54px !important;
-    bottom:  16px !important;
-    right:   16px !important;
+    width:   54px  !important;
+    height:  54px  !important;
+    bottom:  16px  !important;
+    right:   16px  !important;
     z-index: 10000 !important;
   }
 
-  .rcb-options {
-    padding:   8px 16px !important;
-    font-size: 14px     !important;
-  }
-  .rcb-send-button {
-    width:  48px !important;
-    height: 40px !important;
-  }
+  .rcb-options   { padding: 8px 16px !important; font-size: 14px !important; }
+  .rcb-send-button { width: 48px !important; height: 40px !important; }
 }
