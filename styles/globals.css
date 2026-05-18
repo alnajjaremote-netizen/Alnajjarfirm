@@ -1342,46 +1342,46 @@ main#app.app-shell { background: transparent; }
 
 /* --- Mobile: floating overlay widget ≤ 600px --- */
 @media (max-width: 600px) {
-  /* Slide-up animation — replaces the library's corner-fly-in on mobile */
+  /* Smooth slide-up when chat opens */
   @keyframes rcb-animation-expand {
-    0%   { transform: translateY(16px); opacity: 0; }
+    0%   { transform: translateY(20px); opacity: 0; }
     100% { transform: translateY(0);    opacity: 1; }
   }
   @keyframes rcb-animation-collapse {
     0%   { transform: translateY(0);    opacity: 1; }
-    100% { transform: translateY(16px); opacity: 0; }
+    100% { transform: translateY(20px); opacity: 0; }
   }
 
-  /* Chat window — right-aligned floating panel */
+  /* Chat window: nearly full-width, anchored to bottom, website visible above */
   .rcb-chat-window {
-    position:   fixed !important;
-    right:      12px  !important;
-    left:       auto  !important;
-    bottom:     80px  !important;
-    top:        auto  !important;
-    width:      calc(100% - 24px) !important;
-    max-width:  360px !important;
-    height:     62vh  !important;
-    max-height: 520px !important;
-    min-height: 280px !important;
-    border-radius: 20px !important;
-    z-index:    9999  !important;
-    overflow:   hidden !important;
+    position:      fixed !important;
+    left:          10px  !important;
+    right:         10px  !important;
+    width:         calc(100% - 20px) !important;
+    max-width:     500px !important;
+    bottom:        14px  !important;
+    top:           auto  !important;
+    height:        62vh  !important;
+    max-height:    580px !important;
+    min-height:    260px !important;
+    border-radius: 16px  !important;
+    z-index:       9998  !important;  /* toggle button sits above at 9999 */
+    overflow:      hidden !important;
   }
 
-  /* Toggle button aligned to same corner */
+  /* Toggle button — above the chat window, always reachable */
   .rcb-toggle-button {
-    width:  56px !important;
-    height: 56px !important;
-    bottom: 14px !important;
-    right:  14px !important;
+    width:   52px !important;
+    height:  52px !important;
+    bottom:  12px !important;
+    right:   12px !important;
+    z-index: 9999 !important;
   }
 
   .rcb-options {
     padding:   7px 14px !important;
     font-size: 13px     !important;
   }
-
   .rcb-send-button {
     width:  44px !important;
     height: 38px !important;
