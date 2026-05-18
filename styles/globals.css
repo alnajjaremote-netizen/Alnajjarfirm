@@ -1340,50 +1340,50 @@ main#app.app-shell { background: transparent; }
   border-radius: 999px !important;
 }
 
-/* --- Mobile: floating overlay widget ≤ 600px --- */
+/* --- Mobile: full-screen chat ≤ 600px --- */
 @media (max-width: 600px) {
-  /* Smooth slide-up when chat opens */
+  /* Fade in/out animation for full-screen panel */
   @keyframes rcb-animation-expand {
-    0%   { transform: translateY(20px); opacity: 0; }
-    100% { transform: translateY(0);    opacity: 1; }
+    0%   { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
   }
   @keyframes rcb-animation-collapse {
-    0%   { transform: translateY(0);    opacity: 1; }
-    100% { transform: translateY(20px); opacity: 0; }
+    0%   { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(30px); }
   }
 
-  /* Chat window: nearly full-width, anchored to bottom, website visible above */
+  /* Chat window covers entire viewport */
   .rcb-chat-window {
     position:      fixed !important;
-    left:          10px  !important;
-    right:         10px  !important;
-    width:         calc(100% - 20px) !important;
-    max-width:     500px !important;
-    bottom:        14px  !important;
-    top:           auto  !important;
-    height:        62vh  !important;
-    max-height:    580px !important;
-    min-height:    260px !important;
-    border-radius: 16px  !important;
-    z-index:       9998  !important;  /* toggle button sits above at 9999 */
+    top:           0     !important;
+    left:          0     !important;
+    right:         0     !important;
+    bottom:        0     !important;
+    width:         100%  !important;
+    max-width:     100%  !important;
+    height:        100%  !important;
+    max-height:    100%  !important;
+    min-height:    unset !important;
+    border-radius: 0     !important;
+    z-index:       9999  !important;
     overflow:      hidden !important;
   }
 
-  /* Toggle button — above the chat window, always reachable */
+  /* Toggle button stays visible above the chat */
   .rcb-toggle-button {
-    width:   52px !important;
-    height:  52px !important;
-    bottom:  12px !important;
-    right:   12px !important;
-    z-index: 9999 !important;
+    width:   54px !important;
+    height:  54px !important;
+    bottom:  16px !important;
+    right:   16px !important;
+    z-index: 10000 !important;
   }
 
   .rcb-options {
-    padding:   7px 14px !important;
-    font-size: 13px     !important;
+    padding:   8px 16px !important;
+    font-size: 14px     !important;
   }
   .rcb-send-button {
-    width:  44px !important;
-    height: 38px !important;
+    width:  48px !important;
+    height: 40px !important;
   }
 }
