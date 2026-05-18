@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import ChatBot from "react-chatbotify";
 import "@/styles/react-chatbotify.css";
 import type { Params, Flow, Settings, Styles } from "react-chatbotify";
@@ -110,6 +111,31 @@ const flow: Flow = {
 };
 
 export default function Chatbot() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width:600px)");
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  const mobileWindowStyle = isMobile
+    ? {
+        position: "fixed" as const,
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100%",
+        height: "100dvh",
+        maxWidth: "100%",
+        maxHeight: "100dvh",
+        borderRadius: 0,
+      }
+    : {};
+
   const settings: Settings = {
     general: {
       primaryColor: "#deb841",
@@ -209,6 +235,7 @@ export default function Chatbot() {
       border: "1px solid rgba(222, 184, 65, 0.15)",
       boxShadow:
         "0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04)",
+      ...mobileWindowStyle,
     },
     headerStyle: {
       background: "linear-gradient(135deg, #1e1e1e 0%, #252525 100%)",
