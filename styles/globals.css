@@ -1475,6 +1475,37 @@ main#app.app-shell { background: transparent; }
   40%           { opacity: 1;   transform: scale(1);   }
 }
 
+/* ---------- contact link buttons in chat ---------- */
+.cb-contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 6px;
+  padding-left: 2px;
+}
+
+.cb-contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border-radius: 10px;
+  background: #1e1e1e;
+  border: 1px solid rgba(222, 184, 65, 0.25);
+  color: #f0f0f0;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: background 0.18s, border-color 0.18s, color 0.18s;
+}
+
+.cb-contact-btn:hover {
+  background: rgba(222, 184, 65, 0.1);
+  border-color: rgba(222, 184, 65, 0.6);
+  color: #deb841;
+}
+
 /* ---------- quick-reply options ---------- */
 .cb-options {
   display: flex;

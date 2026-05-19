@@ -42,7 +42,8 @@ function route(input: string): string {
   return "unknown";
 }
 
-type Step = { message: string; options: string[] };
+type ContactLink = { icon: string; label: string; href: string };
+type Step = { message: string; options: string[]; links?: ContactLink[] };
 
 const flow: Record<string, Step> = {
   start: {
@@ -66,8 +67,13 @@ const flow: Record<string, Step> = {
     options: ["Book a Meeting", "Pricing", "Main Menu"],
   },
   contact: {
-    message:
-      "📞 Reach Alnajjar Firm:\n\n📱 Phone: +961 81 623 936\n💬 WhatsApp: wa.me/96181623936\n📧 Email: info@alnajjarfirm.com\n📍 Awkar, Mount Lebanon, Lebanon\n\n⏰ Mon–Fri: 9 AM – 6 PM",
+    message: "📞 Reach Alnajjar Firm — tap to connect:\n\n⏰ Mon–Fri: 9 AM – 6 PM",
+    links: [
+      { icon: "📱", label: "Phone: +961 81 623 936", href: "tel:+96181623936" },
+      { icon: "💬", label: "WhatsApp Us", href: "https://wa.me/96181623936" },
+      { icon: "📧", label: "info@alnajjarfirm.com", href: "mailto:info@alnajjarfirm.com" },
+      { icon: "📍", label: "Awkar, Mount Lebanon", href: "https://maps.google.com/?q=33.9281,35.6019" },
+    ],
     options: ["Book a Meeting", "Main Menu"],
   },
   book_meeting: {
@@ -86,7 +92,7 @@ const flow: Record<string, Step> = {
   },
 };
 
-type Message = { role: "bot" | "user"; text: string; id: number };
+type Message = { role: "bot" | "user"; text: string; id: number; links?: ContactLink[] };
 
 let uid = 0;
 
@@ -104,7 +110,7 @@ export default function Chatbot() {
       setTyping(true);
       const t = setTimeout(() => {
         const step = flow.start;
-        setMessages([{ role: "bot", text: step.message, id: uid++ }]);
+        setMessages([{ role: "bot", text: step.message, id: uid++, links: step.links }]);
         setOptions(step.options);
         setTyping(false);
       }, 600);
@@ -137,7 +143,7 @@ export default function Chatbot() {
         const step = flow[route(t)] ?? flow.unknown;
         setMessages((prev) => [
           ...prev,
-          { role: "bot", text: step.message, id: uid++ },
+          { role: "bot", text: step.message, id: uid++, links: step.links },
         ]);
         setOptions(step.options);
         setTyping(false);
@@ -244,16 +250,31 @@ export default function Chatbot() {
         {/* Messages */}
         <div className="cb-body" ref={bodyRef}>
           {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`cb-bubble cb-bubble--${msg.role}`}
-            >
-              {msg.text.split("\n").map((line, i, arr) => (
-                <span key={i}>
-                  {line}
-                  {i < arr.length - 1 && <br />}
-                </span>
-              ))}
+            <div key={msg.id}>
+              <div className={`cb-bubble cb-bubble--${msg.role}`}>
+                {msg.text.split("\n").map((line, i, arr) => (
+                  <span key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </span>
+                ))}
+              </div>
+              {msg.links && (
+                <div className="cb-contact-links">
+                  {msg.links.map((lnk) => (
+                    <a
+                      key={lnk.href}
+                      href={lnk.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="cb-contact-btn"
+                    >
+                      <span>{lnk.icon}</span>
+                      {lnk.label}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
           {typing && (
