@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import "../styles/globals.css";
 import Header from "@/components/Header";
@@ -73,8 +73,13 @@ export const metadata: Metadata = {
     "geo.placename": "Awkar, Mount Lebanon, Lebanon",
     "geo.position": "33.9281;35.6019",
     ICBM: "33.9281, 35.6019",
-    "theme-color": "#171717",
   },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#171717",
 };
 
 const jsonLd = {

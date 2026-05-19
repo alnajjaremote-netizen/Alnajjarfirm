@@ -119,7 +119,7 @@ export default function Chatbot() {
   }, [messages, typing]);
 
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !window.matchMedia("(max-width: 768px)").matches) {
       const t = setTimeout(() => inputRef.current?.focus(), 150);
       return () => clearTimeout(t);
     }
