@@ -26,7 +26,7 @@ export default function PortfolioGrid({ categories }: PortfolioGridProps) {
             role="region"
             aria-label={`${cat.name} cards`}
           >
-            {cat.items.map((item) => {
+            {cat.items.slice(0, 6).map((item) => {
               const img = resolveImagePath(item.image || "");
               const hasStats = item.instaGrowth || item.tiktokGrowth;
 
@@ -35,6 +35,7 @@ export default function PortfolioGrid({ categories }: PortfolioGridProps) {
                   <img
                     className="portfolio-img"
                     loading="lazy"
+                    decoding="async"
                     src={img}
                     alt={item.name || "Portfolio"}
                   />

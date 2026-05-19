@@ -39,7 +39,7 @@ export default function TeamSection({ team, teamImages, ctaLabel, ctaHref }: Tea
         <div key={group} className="team-group reveal">
           <h3>{group}</h3>
           <div className="team-grid slider-on-mobile stagger-children">
-            {members.map((m) => {
+            {members.slice(0, 8).map((m) => {
               const [nameRaw, roleRaw] = m.split("—");
               const name = (nameRaw || "").trim();
               const role = (roleRaw || "").trim();
@@ -51,6 +51,7 @@ export default function TeamSection({ team, teamImages, ctaLabel, ctaHref }: Tea
                     <img
                       className="portfolio-img"
                       loading="lazy"
+                      decoding="async"
                       src={resolveImagePath(fromMap.image)}
                       alt={name}
                     />

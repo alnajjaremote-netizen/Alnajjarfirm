@@ -7,7 +7,10 @@ interface CompaniesCarouselProps {
 export default function CompaniesCarousel({ logos }: CompaniesCarouselProps) {
   if (!logos.length) return null;
 
-  const items = logos.map((url, i) => (
+  // Cap at 12 logos — enough for smooth infinite scroll, prevents loading 60 images on mobile
+  const capped = logos.slice(0, 12);
+
+  const items = capped.map((url, i) => (
     <div key={i} className="logo-item">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -16,6 +19,7 @@ export default function CompaniesCarousel({ logos }: CompaniesCarouselProps) {
         width={190}
         height={120}
         loading="lazy"
+        decoding="async"
         style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />
     </div>

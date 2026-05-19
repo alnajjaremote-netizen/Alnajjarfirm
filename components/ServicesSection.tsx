@@ -32,7 +32,9 @@ export default function ServicesSection({ services, ctaLabel, ctaHref }: Service
                   className="service-icon-img"
                   src={resolveImagePath(iconPath)}
                   alt=""
+                  aria-hidden="true"
                   loading="lazy"
+                  decoding="async"
                   width={30}
                   height={30}
                 />
