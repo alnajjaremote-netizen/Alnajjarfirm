@@ -591,17 +591,41 @@ main#app.app-shell { background: transparent; }
   font-size: clamp(0.92rem, 1.3vw, 1.05rem);
 }
 
-.contact-list { display: grid; gap: 0.45rem; }
+.contact-list { display: grid; gap: 0.6rem; }
 
-.contact-row { margin: 0; font-size: clamp(0.9rem, 1.3vw, 1.02rem); font-weight: 700; }
-
-.contact-row a {
+.contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 1.1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(197, 197, 197, 0.18);
+  background: #252525;
   color: #ffffff;
   text-decoration: none;
-  transition: color 0.2s;
+  font-size: clamp(0.88rem, 1.2vw, 1rem);
+  font-weight: 600;
+  transition: border-color 0.22s, background 0.22s, color 0.22s, transform 0.18s;
 }
 
-.contact-row a:hover { color: var(--accent); }
+.contact-btn:hover {
+  border-color: rgba(222, 184, 65, 0.5);
+  background: rgba(222, 184, 65, 0.07);
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.contact-btn--static {
+  cursor: default;
+  opacity: 0.78;
+}
+
+.contact-btn--static:hover {
+  transform: none;
+  background: #252525;
+  border-color: rgba(197, 197, 197, 0.18);
+  color: #ffffff;
+}
 
 .contact-form { display: grid; gap: 0.78rem; }
 
