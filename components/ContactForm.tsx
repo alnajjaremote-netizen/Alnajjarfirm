@@ -6,30 +6,37 @@ type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
+    setErrorMsg("");
 
     const form = e.currentTarget;
-    const data = new FormData(form);
-    data.append("access_key", "YOUR_WEB3FORMS_KEY"); // get free key at web3forms.com
-    data.append("subject", "New message from Alnajjar Firm website");
-    data.append("from_name", "Alnajjar Firm Website");
+    const data = {
+      name:    (form.elements.namedItem("name")    as HTMLInputElement).value,
+      email:   (form.elements.namedItem("email")   as HTMLInputElement).value,
+      phone:   (form.elements.namedItem("phone")   as HTMLInputElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
 
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/contact", {
         method: "POST",
-        body: data,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
       });
       const json = await res.json();
-      if (json.success) {
+      if (res.ok && json.success) {
         setStatus("success");
         form.reset();
       } else {
+        setErrorMsg(json.error || "Something went wrong. Please try again.");
         setStatus("error");
       }
     } catch {
+      setErrorMsg("Network error. Please check your connection and try again.");
       setStatus("error");
     }
   }
@@ -79,9 +86,7 @@ export default function ContactForm() {
         disabled={status === "sending"}
       />
       {status === "error" && (
-        <p className="contact-form-error">
-          Something went wrong. Please try again or WhatsApp us directly.
-        </p>
+        <p className="contact-form-error">{errorMsg}</p>
       )}
       <button type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send Message"}
