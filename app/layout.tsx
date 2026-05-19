@@ -46,10 +46,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        type: "image/png",
+        url: "/logo.webp",
+        width: 800,
+        height: 200,
         alt: "Alnajjar Firm — Creative Media Agency in Lebanon | Content Creation, Social Media & Branding",
       },
     ],
@@ -59,7 +58,7 @@ export const metadata: Metadata = {
     site: "@alnajjarfirm",
     images: [
       {
-        url: "/opengraph-image",
+        url: "/logo.webp",
         alt: "Alnajjar Firm — Creative Media Agency in Lebanon",
       },
     ],
@@ -117,7 +116,7 @@ const jsonLd = {
         height: 512,
         contentUrl: "https://alnajjarfirmlb.com/logo.webp",
       },
-      image: "https://alnajjarfirmlb.com/opengraph-image",
+      image: "https://alnajjarfirmlb.com/logo.webp",
       description:
         "Alnajjar Firm is a creative media and marketing agency based in Awkar, Lebanon. We specialize in content creation, social media management, reels production, video editing, branding, graphic design, motion graphics, photography, and digital marketing.",
       foundingDate: "2023",
@@ -238,10 +237,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={bricolage.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://maps.google.com" />
-        <link rel="dns-prefetch" href="https://calendly.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
