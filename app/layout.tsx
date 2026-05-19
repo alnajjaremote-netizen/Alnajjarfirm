@@ -46,10 +46,10 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/media-agency-lebanon-og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        type: "image/jpeg",
+        type: "image/png",
         alt: "Alnajjar Firm — Creative Media Agency in Lebanon | Content Creation, Social Media & Branding",
       },
     ],
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     site: "@alnajjarfirm",
     images: [
       {
-        url: "/media-agency-lebanon-og-image.jpg",
+        url: "/opengraph-image",
         alt: "Alnajjar Firm — Creative Media Agency in Lebanon",
       },
     ],
@@ -112,11 +112,12 @@ const jsonLd = {
       url: "https://alnajjarfirmlb.com/",
       logo: {
         "@type": "ImageObject",
-        url: "https://alnajjarfirmlb.com/favicon.svg",
-        width: 200,
-        height: 48,
+        url: "https://alnajjarfirmlb.com/logo.webp",
+        width: 512,
+        height: 512,
+        contentUrl: "https://alnajjarfirmlb.com/logo.webp",
       },
-      image: "https://alnajjarfirmlb.com/media-agency-lebanon-og-image.jpg",
+      image: "https://alnajjarfirmlb.com/opengraph-image",
       description:
         "Alnajjar Firm is a creative media and marketing agency based in Awkar, Lebanon. We specialize in content creation, social media management, reels production, video editing, branding, graphic design, motion graphics, photography, and digital marketing.",
       foundingDate: "2023",
@@ -237,6 +238,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={bricolage.variable}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://maps.google.com" />
+        <link rel="dns-prefetch" href="https://calendly.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -34,6 +34,8 @@ export default function ProcessSection({ steps }: ProcessSectionProps) {
                     src={resolveImagePath(b)}
                     alt={`badge ${i + 1}`}
                     loading="lazy"
+                    width={64}
+                    height={64}
                   />
                 ))}
               </div>
