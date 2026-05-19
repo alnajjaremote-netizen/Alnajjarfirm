@@ -164,14 +164,9 @@ export default function Chatbot() {
             />
           </svg>
         ) : (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img
-            src="/favicon.png"
-            alt=""
-            width={30}
-            height={30}
-            style={{ borderRadius: 8, display: "block" }}
-          />
+          <span style={{ fontSize: 12, fontWeight: 700, lineHeight: 1.2, textAlign: "center" }}>
+            Chat<br />with us
+          </span>
         )}
       </button>
 

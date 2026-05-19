@@ -1319,8 +1319,8 @@ main#app.app-shell { background: transparent; }
   position: fixed;
   bottom: 24px;
   right: 24px;
-  width: 58px;
-  height: 58px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
   background: #1a1a1a;
   border: 1px solid rgba(222, 184, 65, 0.35);
@@ -1539,6 +1539,8 @@ main#app.app-shell { background: transparent; }
   .cb-toggle {
     bottom: 16px;
     right: 16px;
+    width: 64px;
+    height: 64px;
   }
 
   /* prevent iOS Safari from auto-zooming on input focus */
