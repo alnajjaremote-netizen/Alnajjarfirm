@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { resolveImagePath } from "@/lib/utils";
 
 interface CompaniesCarouselProps {
@@ -10,13 +9,13 @@ export default function CompaniesCarousel({ logos }: CompaniesCarouselProps) {
 
   const items = logos.map((url, i) => (
     <div key={i} className="logo-item">
-      <Image
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src={resolveImagePath(url)}
         alt={`Client brand logo — Alnajjar Firm Lebanon partner ${i + 1}`}
         width={190}
         height={120}
         loading="lazy"
-        sizes="(max-width: 480px) 170px, clamp(120px, 14vw, 190px)"
         style={{ width: "100%", height: "100%", objectFit: "contain" }}
       />
     </div>

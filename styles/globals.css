@@ -983,6 +983,18 @@ main#app.app-shell { background: transparent; }
 
 .portfolio-card:hover .portfolio-img { transform: scale(1.07); }
 
+.team-avatar-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1e1e1e;
+  color: #deb841;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(222,184,65,0.15);
+}
+
 .portfolio-overlay {
   position: absolute;
   inset: 0;

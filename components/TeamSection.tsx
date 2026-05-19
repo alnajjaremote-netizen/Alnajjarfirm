@@ -8,6 +8,15 @@ interface TeamSectionProps {
   ctaHref: string;
 }
 
+function initials(name: string): string {
+  return name
+    .split(" ")
+    .slice(0, 2)
+    .map((w) => w[0] ?? "")
+    .join("")
+    .toUpperCase();
+}
+
 export default function TeamSection({ team, teamImages, ctaLabel, ctaHref }: TeamSectionProps) {
   const groups = Object.entries(team).filter(
     ([, members]) => Array.isArray(members) && members.length > 0
@@ -35,18 +44,21 @@ export default function TeamSection({ team, teamImages, ctaLabel, ctaHref }: Tea
               const name = (nameRaw || "").trim();
               const role = (roleRaw || "").trim();
               const fromMap = teamImages[name];
-              const avatar = fromMap
-                ? resolveImagePath(fromMap.image)
-                : `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=171717&color=ffffff&size=512`;
 
               return (
                 <article key={name} className="team-card portfolio-card team-member">
-                  <img
-                    className="portfolio-img"
-                    loading="lazy"
-                    src={avatar}
-                    alt={name}
-                  />
+                  {fromMap ? (
+                    <img
+                      className="portfolio-img"
+                      loading="lazy"
+                      src={resolveImagePath(fromMap.image)}
+                      alt={name}
+                    />
+                  ) : (
+                    <div className="portfolio-img team-avatar-initials" aria-hidden="true">
+                      {initials(name)}
+                    </div>
+                  )}
                   <div className="portfolio-overlay">
                     <div className="portfolio-meta">
                       <div className="portfolio-name">{name}</div>
