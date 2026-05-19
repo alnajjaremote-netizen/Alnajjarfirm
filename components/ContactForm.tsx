@@ -6,12 +6,10 @@ type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("sending");
-    setErrorMsg("");
 
     const form = e.currentTarget;
     const data = {
@@ -32,11 +30,9 @@ export default function ContactForm() {
         setStatus("success");
         form.reset();
       } else {
-        setErrorMsg(json.error || "Something went wrong. Please try again.");
         setStatus("error");
       }
     } catch {
-      setErrorMsg("Network error. Please check your connection and try again.");
       setStatus("error");
     }
   }
@@ -86,7 +82,18 @@ export default function ContactForm() {
         disabled={status === "sending"}
       />
       {status === "error" && (
-        <p className="contact-form-error">{errorMsg}</p>
+        <p className="contact-form-error">
+          Something went wrong.{" "}
+          <a
+            href="https://wa.me/96181623936"
+            target="_blank"
+            rel="noreferrer"
+            style={{ color: "#4ade80", fontWeight: 700 }}
+          >
+            WhatsApp us directly
+          </a>{" "}
+          or try again.
+        </p>
       )}
       <button type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending…" : "Send Message"}
